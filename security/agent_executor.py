@@ -1,23 +1,38 @@
-def execute_action(page, decision):
+# security/agent_executor.py
+
+def execute_action(page, action_plan, decision):
     """
-    Simulated agent attempting to click a button.
-    Security layer intercepts before execution.
+    Execute action only if security decision allows.
     """
 
-    print("\nAgent attempting to perform action: CLICK first button")
+    print(f"\nAgent planned action: {action_plan['type']}")
 
     if decision == "BLOCK":
         print("Action Blocked by Security Policy.")
-        return "BLOCKED"
+        return
 
-    elif decision == "CONFIRM":
+    if decision == "CONFIRM":
         print("⚠ Action requires confirmation.")
         print("Simulating confirmation approval...")
-        page.click("button")
-        print("Action executed after confirmation.")
-        return "CONFIRMED"
+
+    if action_plan["type"] == "CLICK_BUTTON":
+        try:
+            page.click("button")
+            print("Button clicked safely.")
+        except:
+            print("No button to click.")
+
+    elif action_plan["type"] == "SUBMIT_FORM":
+        try:
+            page.fill("input[type='text']", "testuser")
+            page.fill("input[type='password']", "password")
+            page.press("input[type='password']", "Enter")
+            print("✅ Form submitted safely.")
+        except:
+            print("Form submission failed.")
+
+    elif action_plan["type"] == "NO_ACTION":
+        print("ℹ No action performed.")
 
     else:
-        page.click("button")
-        print("Action executed safely.")
-        return "ALLOWED"
+        print("Unknown action type.")
