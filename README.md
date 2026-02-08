@@ -179,7 +179,7 @@ Newer versions such as Python 3.12 or 3.13 may cause compatibility issues with P
 
 ---
 
-## 🔎 Step 0: Verify Python Version
+## Step 0: Verify Python Version
 
 Check your installed Python version:
 
@@ -232,3 +232,4 @@ AgentShield demonstrates a practical, modular, and explainable framework for sec
 - Advanced clickjacking detection  
 - Scalable deployment architecture  
 - Browser extension integration  
+
