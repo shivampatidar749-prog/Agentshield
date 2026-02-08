@@ -16,7 +16,6 @@ from security.action_mediator import decide_action
 from security.goal_validator import validate_goal_alignment
 
 
-# ================= TERMINAL COLORS =================
 RED = "\033[91m"
 GREEN = "\033[92m"
 YELLOW = "\033[93m"
@@ -25,7 +24,6 @@ RESET = "\033[0m"
 BOLD = "\033[1m"
 
 
-# ================= TEST PAGES =================
 TEST_PAGES = [
     "safe.html",
     "visible_injection.html",
@@ -34,7 +32,6 @@ TEST_PAGES = [
 ]
 
 
-# ================= UI HELPERS =================
 
 def print_banner():
     print("\n" + "=" * 70)
@@ -44,7 +41,7 @@ def print_banner():
 
 def print_page_header(page_name):
     print("\n" + "-" * 70)
-    print(f"{BOLD}🔎 Testing Page: {page_name}{RESET}")
+    print(f"{BOLD} Testing Page: {page_name}{RESET}")
     print("-" * 70)
 
 
@@ -112,7 +109,7 @@ def print_result(result):
 
 def print_final_summary(all_results):
     print("\n" + "=" * 70)
-    print(f"{BOLD}📊 FINAL EVALUATION SUMMARY{RESET}")
+    print(f"{BOLD} FINAL EVALUATION SUMMARY{RESET}")
     print("=" * 70)
 
     total = len(all_results)
@@ -133,12 +130,9 @@ def print_final_summary(all_results):
     print("=" * 70)
 
 
-# ================= MAIN EXECUTION =================
-
 def main():
     print_banner()
 
-    # 🔥 Agent Goal
     agent_goal = "Login to website"
 
     with sync_playwright() as p:
@@ -153,21 +147,16 @@ def main():
             print_page_header(page_name)
             loading_animation()
 
-            # ---- Load Page ----
             page.goto(f"file:///{file_path}")
             html = page.content()
 
-            # ---- Initialize Agent State Machine ----
             agent = AgentStateMachine(agent_goal)
 
-            # ---- PERCEPTION ----
             parsed_dom = parse_dom(html)
             agent.perceive(parsed_dom)
 
-            # ---- PLANNING ----
             action_plan = agent.plan(plan_action)
 
-            # ---- VALIDATION ----
             agent.validate()
 
             start_detection = time.time()
@@ -206,7 +195,6 @@ def main():
 
             print_result(result)
 
-            # ---- EXECUTION ----
             if decision != "BLOCK":
                 agent.execute()
 
@@ -214,7 +202,6 @@ def main():
 
             agent.terminate()
 
-            # Optional: show state transitions
             print("\nAgent State History:")
             for old, new in agent.history:
                 print(f"  {old} → {new}")
