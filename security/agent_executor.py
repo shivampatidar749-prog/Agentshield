@@ -1,5 +1,3 @@
-# security/agent_executor.py
-
 def execute_action(page, action_plan, decision):
     """
     Execute action only if security decision allows.
@@ -27,7 +25,7 @@ def execute_action(page, action_plan, decision):
             page.fill("input[type='text']", "testuser")
             page.fill("input[type='password']", "password")
             page.press("input[type='password']", "Enter")
-            print("✅ Form submitted safely.")
+            print("Form submitted safely.")
         except:
             print("Form submission failed.")
 

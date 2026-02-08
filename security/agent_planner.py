@@ -1,5 +1,3 @@
-# security/agent_planner.py
-
 def plan_action(parsed_dom, agent_goal):
     """
     Decide next action based on agent goal and page content.
@@ -16,27 +14,22 @@ def plan_action(parsed_dom, agent_goal):
     forms = parsed_dom.get("forms", []) or []
     buttons = parsed_dom.get("buttons", []) or []
 
-    # Normalize buttons into text safely
     normalized_buttons = []
 
     for btn in buttons:
         if btn is None:
             continue
 
-        # If button is dict
         if isinstance(btn, dict):
             text = str(btn.get("text", "")).lower()
             if text:
                 normalized_buttons.append(text)
 
-        # If button is string
         elif isinstance(btn, str):
             normalized_buttons.append(btn.lower())
 
-    # === GOAL: LOGIN ===
     if "login" in agent_goal.lower():
 
-        # Check login form
         for form in forms:
             if isinstance(form, dict):
                 fields = form.get("fields", [])
@@ -47,7 +40,6 @@ def plan_action(parsed_dom, agent_goal):
                         "reason": "Login form detected"
                     }
 
-        # Check login button
         for btn_text in normalized_buttons:
             if "login" in btn_text:
                 return {
@@ -56,7 +48,6 @@ def plan_action(parsed_dom, agent_goal):
                     "reason": "Login button detected"
                 }
 
-   # Default safe click
     if normalized_buttons:
         return {
             "type": "CLICK_BUTTON",

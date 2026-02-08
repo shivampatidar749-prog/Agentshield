@@ -1,5 +1,3 @@
-# security/agent_state_machine.py
-
 class AgentStateMachine:
 
     def __init__(self, goal):
