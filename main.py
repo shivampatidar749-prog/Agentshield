@@ -35,7 +35,7 @@ def print_banner():
 
 def print_page_header(page_name):
     print("\n" + "-" * 70)
-    print(f"{BOLD}🔎 Testing Page: {page_name}{RESET}")
+    print(f"{BOLD} Testing Page: {page_name}{RESET}")
     print("-" * 70)
 
 
@@ -150,7 +150,7 @@ def print_result(result):
 
 def print_final_summary(all_results):
     print("\n" + "=" * 70)
-    print(f"{BOLD}📊 FINAL EVALUATION SUMMARY{RESET}")
+    print(f"{BOLD} FINAL EVALUATION SUMMARY{RESET}")
     print("=" * 70)
 
     total = len(all_results)
